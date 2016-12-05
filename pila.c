@@ -25,9 +25,9 @@ typedef struct {
 */
 
 // Para inicializar una pila recien creada
-void inicializa(pila *pil) {
-  pil->tamano = 0;
-  pil->inicial = NULL;
+void inicializa(pila *pi) {
+  pi->tamano = 0;
+  pi->inicial = NULL;
 }
 
 // regresa el numero de elementos de la pila
