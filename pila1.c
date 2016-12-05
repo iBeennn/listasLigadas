@@ -1,18 +1,15 @@
 /*
-  Implementacion de las funciones basicas para manipular listas
-  ligadas de enteros. En base a los tipos de dato nodo y lista
-  definidas en el archivo ".h"
-
-  Marco Antonio Heredia Velasco
+  Implementacion de las funciones basicas para manipular pilas de enteros. En base a los tipos de dato nodo y pila
+  definidas en el archivo "pila.h"
+  
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "pila.h"
 
-
 /*
-  Definiciones de nodo y lista, ya incluidas en listaLigada.h
+  Definiciones de nodo y pila, ya incluidas en pila.h
 
 typedef struct _nodo
 {
@@ -23,24 +20,24 @@ typedef struct _nodo
 typedef struct {
    int tamano;
    nodo * inicial;
-} lista;
+} pila;
 */
 
 
-// Para inicializar una lista recien creada
+// Para inicializar una pila recien creada
 void inicializa(pila * pil)
 {
    pil-> tamano =0;
    pil-> inicial =NULL;
 }
 
-// regresa el numero de elementos de la lista
+// regresa el numero de elementos de la pila
 int longitud(pila *pil)
 {
    return pil-> tamano;
 }
 
-// regresa 1 si la lista es vacia 0 si no
+// regresa 1 si la pila es vacia 0 si no
 int esVacia(pila *pil)
 {
    if (longitud(pil) == 0)
@@ -89,25 +86,20 @@ void push(pila *pil, int elemento)
 
    // asignamos el valor del nodo nuevo
    nuevo->valor = elemento;
-
-   //si el indice no es una posicion valida
-
-      if (pil->tamano == 0)
+       
+  if (pil->tamano == 0)
       {
-         //hacemos que el siguiente nodo despues del nuevo sea
-         //el nodo al inicio de la lista
          nuevo->siguiente = pil->inicial;
 
          //actualizamos el inicio de la lista
          pil->inicial = nuevo;
 
-      } else {  //si indice no es 0
+      } else {  //si la pila no esta vacia
 
-         //Empezaremos a buscar la posicion desde el nodo inicial
          actual= pil->inicial;
          posActual =0;
 
-         //Mientras no lleguemos un nodo antes de la posicion deseada
+         //Mientras no lleguemos a la posicion deseada
          while (posActual != pil-> tamano)
       {
          //avanzamos al siguiente nodo
@@ -115,18 +107,17 @@ void push(pila *pil, int elemento)
          posActual++;
       }
 
-         //el nodo despues del nuevo sera la que antes seguia a
-         //la anterior
+         //el nodo nuevo apuntara al siguiente del actual
          nuevo->siguiente = actual->siguiente;
 
-         //y el nodo siguiente al anterior sera ahora el nuevo
+         //y el nodo actual apuntara al nuevo
          actual->siguiente = nuevo;
 
-      } //fin si indice no es 0
+      }
 
       //aumentamos el numero de elementos
       pil->tamano++;
-   } //fin else si dan indice adecuado
+   } 
 }
 
 
@@ -137,7 +128,7 @@ void pop(pila *pil)
    nodo * actual;
    nodo * borrar; //apuntaremos al nodo que queremos borrar
 
-   //si el indice no es una posicion valida
+   //si la pila esta vacia
    if (longitud(pil) == 0)
    {
       printf("La pila es vacia");
@@ -149,14 +140,14 @@ void pop(pila *pil)
          posActual =0;
 
          //Mientras no lleguemos un nodo antes de la posicion deseada
-         while (posActual != pil-> tamano-1)
+         while (posActual != pil-> (tamano-1))
       {
          //avanzamos al siguiente nodo
          actual = actual->siguiente;
          posActual++;
       }
 
-         //queremos borrar el siguiente de anterior
+         //queremos borrar el siguiente de actual
          borrar = actual->siguiente;
 
          //nos saltamos el nodo que queremos borrar
@@ -165,9 +156,9 @@ void pop(pila *pil)
          //liberamos la memoria del nodo que borramos
          free(borrar);
 
-      } //fin si no queremos borrar la primera
+      } 
 
       //reducimos el numero de elementos
       pil->tamano--;
-   } //fin else si dan indice adecuado
+   }
 }
